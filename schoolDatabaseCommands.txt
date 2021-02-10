@@ -1,0 +1,38 @@
+db.student.insertOne({
+    "_id" : ObjectId("602415d87c314e9540f7953b"),
+    student_name: "Alex James",
+    student_age: 15,
+    student_gender: "Male"
+    });
+
+db.staff.insertOne({
+    "_id" : ObjectId("6024160a7c314e9540f7953c"),
+    staff_name: "John Smith",
+    staff_age: 35,
+    staff_gender: "Male"
+    });
+
+db.building.insertOne({
+    "_id" : ObjectId("6024160e7c314e9540f7953d"),
+    building_name: "Left Wing",
+    building_capacity: 250,
+    staff_id: ObjectId("6024160a7c314e9540f7953c")
+});
+
+db.class.insertOne({
+    class_capacity: 45,
+    class_student: ObjectId("602415d87c314e9540f7953b"),
+    class_staff: ObjectId("6024160a7c314e9540f7953c")
+    });
+
+db.building.updateOne({building_name: "Left Wing"}, { $set: {
+    building_name: "Left Wing",
+    building_capacity: 250,
+    staff_id: ObjectId("6024160a7c314e9540f7953c")
+} });
+
+db.student.updateOne({"_id" : ObjectId("602415d87c314e9540f7953b")}, { $set: {
+    student_grades: {maths: 75, physics: 95, chemistry: 80},
+    student_attendance: {present_days: 90, absent_days: 5, total_days: 200, attendance_percentage: { $multiply: [{ $divide: [ $"present_days", $"total_days" ]}, 100] } }  //{ $divide: [ $"present_days", 2 ] }
+} });
+
