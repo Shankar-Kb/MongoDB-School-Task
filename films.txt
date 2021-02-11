@@ -43,7 +43,18 @@ db.films.find( {title: { $regex: /^WALL-/ } }, {} ).pretty();
 db.films.find( {}, {title: 1, year: 1} ).sort( {year: -1} ).limit(4).pretty();
 
 15. List the first five Pixar movies sorted alphabetically
-db.films.find( {}, {title: 1, year: 1,  _id: 0} ).sort({title: 1, year: 1}).limit(5).pretty();
+db.films.aggregate([
+    { $sort : { year : 1 } },
+    { $limit: 5 },
+    { $sort : { title : 1 } },
+    { $project: { title: 1, year: 1,  _id: 0 } }
+    ])
 
 16. List the next five Pixar movies sorted alphabetically
-db.films.find( {}, {title: 1, year: 1,  _id: 0} ).sort({title: 1, year: 1}).skip(5).limit(5).pretty();
+db.films.aggregate([
+    { $sort : { year : 1 } },
+    { $skip: 5 },
+    { $limit: 5 },
+    { $sort : { title : 1 } },
+    { $project: { title: 1, year: 1,  _id: 0 } }
+    ])
