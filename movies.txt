@@ -1,0 +1,58 @@
+Query / Find Documents
+db.movies.insertMany([]);
+query the movies collection to 
+1. get all documents
+db.movies.find().pretty();
+
+2. get all documents with writer set to "Quentin Tarantino"
+db.movies.find( {"writer": "Quentin Tarantino"},{}).pretty();
+
+3. get all documents where actors include "Brad Pitt"
+db.movies.find( {"actors": { $in:["Brad Pitt"] } },{}).pretty();
+OR
+db.movies.find( {"actors": "Brad Pitt" },{}).pretty();
+
+4. get all documents with franchise set to "The Hobbit"
+db.movies.find( {"franchise": "The Hobbit" },{}).pretty();
+
+5. get all movies released in the 90s
+db.movies.find( { year: { $gte: 1900, $lte: 1999 } }, {} );
+
+6. get all movies released before the year 2000 or after 2010
+db.movies.find( { $or: [ {"year": { $lt: 2000 }}, {"year": { $gt: 2010 }} ] }, {} ).pretty();
+
+Update Documents
+7. add a synopsis to "The Hobbit: An Unexpected Journey" : "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."
+db.movies.updateOne({title:"The Hobbit: An Unexpected Journey"}, {$set:{synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}});
+
+8. add a synopsis to "The Hobbit: The Desolation of Smaug" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."
+db.movies.updateOne({title:"The Hobbit: The Desolation of Smaug"}, {$set:{synopsis:"The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."}});
+
+9. add an actor named "Samuel L. Jackson" to the movie "Pulp Fiction"
+db.movies.update( {title:"Pulp Fiction"}, {  $push: { actors:"Samuel L. Jackson" } });
+
+Text Search
+10. find all movies that have a synopsis that contains the word "Bilbo"
+db.movies.createIndex({ synopsis: "text" });
+db.movies.find( { $text: { $search: "Bilbo" } } );
+
+11. find all movies that have a synopsis that contains the word "Gandalf"
+db.movies.find( { $text: { $search: "Gandalf" } } );
+
+12. find all movies that have a synopsis that contains the word "Bilbo" and not the word "Gandalf"
+db.movies.find( { $text: { $search: "Bilbo -gandalf" } } );
+
+13. find all movies that have a synopsis that contains the word "dwarves" or "hobbit"
+db.movies.find( { $text: { $search: "dwarves hobbit" } } );
+
+14. find all movies that have a synopsis that contains the word "gold" and "dragon"
+db.movies.find( { $text: { $search: '"gold" "dragon"' } } );
+https://www.google.com/search?client=firefox-b-d&ei=T8gmYLitM83Zz7sP3oKayAY&q=how+to+perform+and+operation+with+mongodb+%24text+site%3Astackoverflow.com&oq=how+to+perform+and+operation+with+mongodb+%24text+site%3Astackoverflow.com&gs_lcp=Cgdnd3Mtd2l6EAM6BwgAEEcQsAM6BQghEKABOgcIIRAKEKABOgQIIRAVUNyuO1jhqj1g7as9aAlwAngAgAHXA4gBmxOSAQoxMy41LjAuMS4xmAEAoAEBqgEHZ3dzLXdpesgBCMABAQ&sclient=gws-wiz&ved=0ahUKEwj4kJGw_OTuAhXN7HMBHV6BBmkQ4dUDCAw&uact=5
+
+Delete Documents
+15. delete the movie "Pee Wee Herman's Big Adventure"
+db.movies.deleteOne( {title: "Pee Wee Herman's Big Adventure"}, {} );
+
+16. delete the movie "Avatar"
+db.movies.deleteOne( {title: "Avatar"}, {} );
+

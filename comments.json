@@ -1,0 +1,27 @@
+[
+{
+"username" : "GoodGuyGreg",
+"comment" : "Hope you got a good deal!",
+"post" : ObjectId("60276c721e9112c7aff089ce")
+},
+{
+"username" : "GoodGuyGreg",
+"comment" : "What's mine is yours!",
+"post" : ObjectId("60276c721e9112c7aff089cf")
+},
+{
+"username" : "GoodGuyGreg",
+"comment" : "Don't violate the licensing agreement!",
+"post" : ObjectId("60276c721e9112c7aff089d0")
+},
+{
+"username" : "ScumbagSteve",
+"comment" : "It still isn't clean",
+"post" : ObjectId("60276c721e9112c7aff089cb")
+},
+{
+"username" : "ScumbagSteve",
+"comment" : "Denied your PR cause I found a hack",
+"post" : ObjectId("60276c721e9112c7aff089cd")
+}
+]
